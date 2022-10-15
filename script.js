@@ -2,19 +2,13 @@ let numberOfSquares = 6;
 let colors = [];
 let pickedColor;
 let squares = document.querySelectorAll(".square");
-let colorDisplay = document.querySelector("displayColor");
+let colorDisplay = document.querySelector("#displayColor");
 let messageDisplay = document.querySelector("#message");
 let heading = document.querySelector("#heading");
 let resetButton = document.querySelector("#reset");
 let modeButtons = document.querySelectorAll(".mode");
 
-init();
 
-function init() {
-    setupModeBtns();
-    setupSquares();
-    reset();
-}
 
 function setupModeBtns() {
     for (let i = 0; i < modeButtons.length; i ++) {
@@ -49,7 +43,7 @@ function setupSquares() {
 
 function reset() {
     colors = generateRandomColors(numberOfSquares);
-    pickedColor = pickedColor();
+    pickedColor = pickColor();
     colorDisplay.textContent = pickedColor;
     for (let i = 0; i < squares.length; i++) {
         if (colors[i]) {
@@ -59,7 +53,7 @@ function reset() {
             squares[i].style.display = "none";
         }
     }
-    heading.style.backgroundColor = 'steelBlue';
+    heading.style.backgroundColor = "steelBlue";
     resetButton.textContent = "New Color";
     messageDisplay.textContent = "";
 }
@@ -70,11 +64,34 @@ function changeColors(color) {
     }
 }
 
-function pickedColor() {
+function pickColor() {
     let random = Math.floor(Math.random() * colors.length);
+    return colors[random];
+}
+
+function generateRandomColors(num) {
     let arr = [];
-    for (let i = 0; i < numberOfSquares; i++) {
+    for (let i = 0; i < num; i++) {
         arr.push(randomColor());
     }
     return arr;
+}
+
+function randomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return "rgb(" + r + ", " + g + ", " + b + ")";
+}
+
+resetButton.addEventListener("click", function() {
+    reset();
+});
+
+init();
+
+function init() {
+    setupModeBtns();
+    setupSquares();
+    reset();
 }
