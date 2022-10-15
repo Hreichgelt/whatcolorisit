@@ -45,4 +45,36 @@ function setupSquares() {
             }
         });
     }
+};
+
+function reset() {
+    colors = generateRandomColors(numberOfSquares);
+    pickedColor = pickedColor();
+    colorDisplay.textContent = pickedColor;
+    for (let i = 0; i < squares.length; i++) {
+        if (colors[i]) {
+            squares[i].style.display = "block";
+            squares[i].style.backgroundColor = colors[i];
+        } else {
+            squares[i].style.display = "none";
+        }
+    }
+    heading.style.backgroundColor = 'steelBlue';
+    resetButton.textContent = "New Color";
+    messageDisplay.textContent = "";
+}
+
+function changeColors(color) {
+    for (let i = 0; i <squares.length; i++) {
+        squares[i].style.backgroundColor = color;
+    }
+}
+
+function pickedColor() {
+    let random = Math.floor(Math.random() * colors.length);
+    let arr = [];
+    for (let i = 0; i < numberOfSquares; i++) {
+        arr.push(randomColor());
+    }
+    return arr;
 }
